@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.paper.reason.dao.UserInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.paper.reason.model.UserInfo" >
+    <id column="USER_SID" property="userSid" jdbcType="BIGINT" />
+    <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+    <result column="USER_PW" property="userPw" jdbcType="VARCHAR" />
+    <result column="USER_STATUS" property="userStatus" jdbcType="VARCHAR" />
+    <result column="USER_WXID" property="userWxid" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    USER_SID, USER_NAME, USER_PW, USER_STATUS, USER_WXID
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_info
+    where USER_SID = #{userSid,jdbcType=BIGINT}
+  </select>
+    <select id="findAll" resultType="com.paper.reason.model.UserInfo">
+        select * from user_info
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from user_info
+    where USER_SID = #{userSid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.paper.reason.model.UserInfo" >
+    insert into user_info (USER_SID, USER_NAME, USER_PW, 
+      USER_STATUS, USER_WXID)
+    values (#{userSid,jdbcType=BIGINT}, #{userName,jdbcType=VARCHAR}, #{userPw,jdbcType=VARCHAR}, 
+      #{userStatus,jdbcType=VARCHAR}, #{userWxid,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.paper.reason.model.UserInfo" >
+    insert into user_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userSid != null" >
+        USER_SID,
+      </if>
+      <if test="userName != null" >
+        USER_NAME,
+      </if>
+      <if test="userPw != null" >
+        USER_PW,
+      </if>
+      <if test="userStatus != null" >
+        USER_STATUS,
+      </if>
+      <if test="userWxid != null" >
+        USER_WXID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userSid != null" >
+        #{userSid,jdbcType=BIGINT},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userPw != null" >
+        #{userPw,jdbcType=VARCHAR},
+      </if>
+      <if test="userStatus != null" >
+        #{userStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="userWxid != null" >
+        #{userWxid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.paper.reason.model.UserInfo" >
+    update user_info
+    <set >
+      <if test="userName != null" >
+        USER_NAME = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userPw != null" >
+        USER_PW = #{userPw,jdbcType=VARCHAR},
+      </if>
+      <if test="userStatus != null" >
+        USER_STATUS = #{userStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="userWxid != null" >
+        USER_WXID = #{userWxid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where USER_SID = #{userSid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.paper.reason.model.UserInfo" >
+    update user_info
+    set USER_NAME = #{userName,jdbcType=VARCHAR},
+      USER_PW = #{userPw,jdbcType=VARCHAR},
+      USER_STATUS = #{userStatus,jdbcType=VARCHAR},
+      USER_WXID = #{userWxid,jdbcType=VARCHAR}
+    where USER_SID = #{userSid,jdbcType=BIGINT}
+  </update>
+</mapper>
