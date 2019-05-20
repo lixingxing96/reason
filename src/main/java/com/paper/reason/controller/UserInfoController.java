@@ -1,5 +1,6 @@
 package com.paper.reason.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.paper.reason.model.UserInfo;
 import com.paper.reason.service.UserInfoService;
 import lombok.extern.java.Log;
@@ -26,6 +27,7 @@ public class UserInfoController {
     public List<UserInfo> findAll() {
         try {
             List<UserInfo> lists = userService.findAll();
+            log.info("返回JSON：" + JSON.toJSONString(lists));
             return lists;
         } catch (Exception e) {
             e.printStackTrace();
